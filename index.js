@@ -2,6 +2,8 @@
 import createPage from './modules/createPage.js';
 import createKeyboard from './modules/createKeyboard.js';
 import searchBtn from './modules/searchBtn.js';
+import changeKeyboard from './modules/changeKeyboard.js';
+import changeLanguage from './modules/changeLanguage.js';
 
 let lang = JSON.parse(localStorage.getItem('lang') || '"en"');
 let register = 'low';
@@ -17,6 +19,8 @@ document.addEventListener('mousedown', (event) => {
     const targetBtn = searchBtn(event.target.dataset.code);
     if (targetBtn.code === 'ShiftLeft' || targetBtn.code === 'ShiftRight') {
       register = register === 'low' ? 'caps' : 'low';
+      const curKeys = createKeyboard(lang, register);
+      changeKeyboard(curKeys);
     }
 
     if (targetBtn.code === 'Enter') textarea.value += '\n';
@@ -24,11 +28,14 @@ document.addEventListener('mousedown', (event) => {
     if (targetBtn.code === 'CapsLock') {
       register = register === 'low' ? 'caps' : 'low';
       upper = upper === 'off' ? 'on' : 'off';
+      const curKeys = createKeyboard(lang, register);
+      changeKeyboard(curKeys);
     }
 
     if (targetBtn.code === 'AltRight') {
       lang = lang === 'en' ? 'ru' : 'en';
       localStorage.setItem('lang', JSON.stringify(lang));
+      changeLanguage(lang, register);
     }
 
     if (targetBtn.code === 'Backspace' && textarea.value.length > 0) {
