@@ -1,15 +1,16 @@
-import keyboardArray from '../modules/keyboardArray.js';
-import Key from '../modules/Key.js';
+/* eslint-disable import/extensions */
+import keyboardArray from './keyboardArray.js';
+import Key from './Key.js';
 
-let createKeyboard = (lang, register) => {
-  let keyboard = document.createElement('div');
+const createKeyboard = (lang, register) => {
+  const keyboard = document.createElement('div');
   keyboard.classList.add('keyboard');
   keyboardArray.forEach((el) => {
-    let key = new Key(el);
-    let btn = key.showLetter(lang, register);
+    const key = new Key(el);
+    const btn = key.showLetter(lang, register);
     keyboard.appendChild(btn);
-  })
+  });
   return keyboard;
-}
+};
 
 export default createKeyboard;
